@@ -3,7 +3,7 @@ mod routes;
 mod state;
 mod auth;
 mod error;
-
+mod specs;
 
 use crate::state::AppState;
 use crate::auth::jwt::JwtKeys;

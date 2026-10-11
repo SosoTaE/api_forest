@@ -10,6 +10,7 @@ use tower_http::{timeout::TimeoutLayer, trace::TraceLayer};
 
 use crate::auth;
 use crate::state::AppState;
+use crate::specs::routes;
 
 pub fn router(state: AppState) -> Router {
     Router::new()
@@ -19,6 +20,7 @@ pub fn router(state: AppState) -> Router {
         .route("/auth/refresh", post(auth::handlers::refresh))
         .route("/auth/logout", post(auth::handlers::logout))
         .route("/users/me", get(auth::handlers::me))
+        .merge(routes())
         .layer(TimeoutLayer::with_status_code(
             StatusCode::REQUEST_TIMEOUT,
             Duration::from_secs(10),
